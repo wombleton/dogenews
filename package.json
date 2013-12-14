@@ -10,7 +10,7 @@
     "keyword-extractor": "0.0.7"
   },
   "scripts": {
-    "doge": "npm browserify && cp manifest.json doge.js build && zip -r build.zip build",
+    "doge": "npm run-script browserify && cp icon.png manifest.json background.js doge.js build && zip -r build.zip build",
     "browserify": "browserify src/index.js | uglifyjs > doge.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
