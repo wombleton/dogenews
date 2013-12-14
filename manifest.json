@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Doge News",
+  "description": "Very doge for the front page of stuff.co.nz & nzherald.co.nz.",
+  "version": "1.1.1",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "http://www.nzherald.co.nz/",
+    "http://www.stuff.co.nz/"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_icon": "icon.png",
+    "default_title": "Doge News"
+  }
+}
