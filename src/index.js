@@ -50,11 +50,19 @@ function dogeIt() {
 
   headlines = getHeadlines().map(function() {
     var $this = $(this),
-        text = $this.text().trim();
+        text = $this.text().trim(),
+        word,
+        words = glossary.extract(text, { return_changed_case: false });
+
+    if (words.length) {
+      word = sample(words);
+    } else {
+      word = sample(text.split(' '));
+    }
 
     return {
       href: $this.find('a').attr('href'),
-      keywords: glossary.extract(text, { return_changed_case: false }),
+      keyword: word,
       text: text
     };
   });
@@ -75,7 +83,7 @@ function dogeIt() {
 
   // four words and then wow
   for (i = 0; i < 5; i++) {
-    var word = sample(prefixes),
+    var prefix = sample(prefixes),
         headline,
         position = sample(positions),
         content,
@@ -94,7 +102,7 @@ function dogeIt() {
         continue;
       }
 
-      content = word + ' ' + sample(headline.keywords);
+      content = prefix + ' ' + headline.keyword;
       $link = $('<a href="' + headline.href + '">' + content + '</div>').attr('title', headline.text);
     }
 
