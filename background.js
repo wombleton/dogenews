@@ -14,7 +14,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, change, tab) {
   if (urls.indexOf(tab.url) >= 0) {
     if (change.status === 'loading') {
       chrome.pageAction.show(tabId);
-    } else {
+    } else if (change.status === 'complete') {
       dogeMe(tabId);
     }
   } else {

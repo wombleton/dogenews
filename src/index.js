@@ -1,10 +1,11 @@
 var $ = require('./jquery'),
     glossary = require('keyword-extractor'),
     headlines,
+    i,
     $doge,
-    dogeWords = ['so', 'much', 'very', 'such', 'wow'],
-    colors = ['red', 'white', 'blue', 'green', 'purple', 'cyan'],
-    positions = [[10, 10], [55, 20], [20, 30], [60, 40], [15, 45], [30, 60], [58, 70], [15, 80], [65, 85]];
+    prefixes = ['many', 'so', 'much', 'very', 'such'],
+    colors = ['red', 'white', 'blue', 'green', 'purple', 'cyan', 'lime', 'yellow', 'orange'],
+    positions = [[10, 10], [55, 20], [20, 30], [60, 35], [15, 45], [30, 60], [58, 70], [15, 70], [65, 85], [10, 80]];
 
 function sample(list) {
   var index = Math.floor(Math.random() * list.length);
@@ -13,7 +14,7 @@ function sample(list) {
 }
 
 function jitter(n) {
-  return n + (Math.floor(Math.random() * 10)) - 5;
+  return n + (Math.floor(Math.random() * 8)) - 4;
 }
 
 function isHerald() {
@@ -72,21 +73,29 @@ function dogeIt() {
 
   $doge.appendTo('body');
 
-  while(dogeWords.length) {
-    var word = sample(dogeWords),
-        headline = sample(headlines),
+  // four words and then wow
+  for (i = 0; i < 5; i++) {
+    var word = sample(prefixes),
+        headline,
         position = sample(positions),
         content,
-        href = headline.href,
         $link;
 
-    if (word === 'wow') {
-      content = word;
-      href = 'http://knowyourmeme.com/memes/doge';
-      $link = $('<a href="' + href + '">' + content + '</div>');
+    if (i === 4) {
+      if (Math.random() < 0.9) {
+        $link = $('<a href="http://knowyourmeme.com/memes/doge">wow</div>');
+      } else {
+        $link = $('<a href="http://knowyourmeme.com/memes/doge">wow</div>');
+      }
     } else {
+      headline = sample(headlines);
+
+      if (!headline) {
+        continue;
+      }
+
       content = word + ' ' + sample(headline.keywords);
-      $link = $('<a href="' + href + '">' + content + '</div>').attr('title', headline.text);
+      $link = $('<a href="' + headline.href + '">' + content + '</div>').attr('title', headline.text);
     }
 
     $link.css({
